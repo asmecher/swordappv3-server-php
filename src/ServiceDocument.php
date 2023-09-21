@@ -14,12 +14,12 @@ class ServiceDocument implements \JsonSerializable {
   public bool $acceptDeposits = true;
 
   public string $version = 'http://purl.org/net/sword/3.0';
-  public int $maxUploadSize = 16777216000;
-  public int $maxByReferenceSize = 30000000000000000;
-  public int $maxSegmentSize = 16777216000;
-  public int $minSegmentSize = 1;
-  public int $maxAssembledSize = 30000000000000;
-  public int $maxSegments = 1000;
+  public ?int $maxUploadSize = 16777216000;
+  public ?int $maxByReferenceSize = 30000000000000000;
+  public ?int $maxSegmentSize = 16777216000;
+  public ?int $minSegmentSize = 1;
+  public ?int $maxAssembledSize = 30000000000000;
+  public ?int $maxSegments = 1000;
 
   public array $accept = ['*/*'];
   public array $acceptArchiveFormat = ['application/zip'];
@@ -29,8 +29,8 @@ class ServiceDocument implements \JsonSerializable {
   public ?CollectionPolicy $collectionPolicy = null;
   public ?Treatment $treatment = null;
 
-  public string $staging;
-  public int $stagingMaxIdle = 3600;
+  public ?string $staging = null;
+  public ?int $stagingMaxIdle = 3600;
 
   public bool $byReferenceDeposit = false;
   public bool $onBehalfOf = false;
@@ -38,10 +38,16 @@ class ServiceDocument implements \JsonSerializable {
   public array $digest = ['SHA-256', 'SHA', 'MD5'];
   public array $authentication = ['Basic', 'OAuth', 'Digest', 'APIKey'];
 
-  public array $services = [];
+  protected array $services = [];
 
   public function __construct(string $id) {
     $this->id = $id;
+  }
+
+  public function addService(ServiceDocument $sd): self
+  {
+    $this->services[] = $sd;
+    return $this;
   }
 
   public function jsonSerialize() {
