@@ -1,0 +1,28 @@
+{
+    "name": "asmecher/swordappv3-server-php",
+    "description": "A PHP library for serving data via a SWORDv3 interface",
+    "type": "project",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "asmecher",
+            "email": "alec@smecher.bc.ca"
+        }
+    ],
+    "require": {
+        "php": ">=8.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.3",
+        "estahn/phpunit-json-assertions": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Asmecher\\Swordv3Server\\": "src/",
+            "Asmecher\\Swordv3Server\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
