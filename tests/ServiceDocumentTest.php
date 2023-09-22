@@ -77,6 +77,7 @@ class ServiceDocumentTest extends \PHPUnit\Framework\TestCase
             root: 'http://test-service-document'
         );
 
+        // Clone the service document and modify it for a nested service
         $subSd = clone $sd;
         $subSd->id = 'my nested service document id';
         $sd->addService($subSd);

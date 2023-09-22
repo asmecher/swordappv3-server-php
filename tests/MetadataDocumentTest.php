@@ -17,7 +17,7 @@ class MetadataDocumentTest extends \PHPUnit\Framework\TestCase
         $this->assertJsonMatchesSchema(json_decode(json_encode($md)), 'swordv3/docs/metadata.schema.json');
     }
 
-    public function testWithTreatment()
+    public function testWithMetadata()
     {
         $md = new MetadataDocument('my test id');
         $md->addMetadata('dc:title', 'My test title');

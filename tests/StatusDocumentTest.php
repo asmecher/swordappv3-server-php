@@ -40,15 +40,12 @@ class StatusDocumentTest extends \PHPUnit\Framework\TestCase
             actions: new Actions()
         );
         $sd->addState('http://purl.org/net/sword/3.0/state/inProgress', 'In progress');
-
-        $link = new Link(
+        $sd->addLink(new Link(
             id: 'my test link id',
             contentType: 'application/pdf',
             eTag: 'abc',
             status: 'http://purl.org/net/sword/3.0/filestate/ingested'
-        );
-
-        $sd->addLink($link);
+        ));
 
         $decodedEncodedJson = json_decode(json_encode($sd));
 
