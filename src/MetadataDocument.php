@@ -6,11 +6,10 @@ class MetadataDocument implements \JsonSerializable {
   const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
   const TYPE = 'Metadata';
 
-  public string $id;
-  protected array $metadata = [];
-
-  public function __construct(string $id) {
-    $this->id = $id;
+  public function __construct(
+    public string $id,
+    protected array $metadata = []
+  ) {
   }
 
   public function addMetadata(string $field, string $value): self

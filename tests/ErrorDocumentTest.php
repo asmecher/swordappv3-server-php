@@ -14,11 +14,12 @@ class ErrorDocumentTest extends \PHPUnit\Framework\TestCase
 
     public function testErrorDocument()
     {
-        $ed = new ErrorDocument();
-        $ed->type = 'BadRequest';
-        $ed->timestamp = '1997-07-16T19:20:30+01:00';
-        $ed->error = 'Error summary';
-        $ed->log = 'text log of any debug information for the client';
+        $ed = new ErrorDocument(
+            type: 'BadRequest',
+            timestamp: '1997-07-16T19:20:30+01:00',
+            error: 'Error summary',
+            log: 'text log of any debug information for the client'
+        );
 
         $this->assertJsonMatchesSchema(json_decode(json_encode($ed)), 'swordv3/docs/error.schema.json');
     }

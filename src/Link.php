@@ -3,25 +3,25 @@
 namespace Asmecher\Swordv3Server;
 
 class Link implements \JsonSerializable {
-  public string $id;
-  public ?string $byReference = null;
-  public string $contentType;
-  public ?string $isReplacedBy = null;
-  public ?string $relation = null;
-  public ?string $replaces = null;
-  public ?string $depositedBy = null;
-  public ?string $depositedOn = null;
-  public ?string $depositedOnBehalfOf = null;
-  public ?string $derivedFrom = null;
-  public string $eTag;
-  public ?string $log = null;
-  public ?string $packaging = null;
-  public array $rel = [];
-  public string $status;
-  public ?string $versionReplacedOn = null;
 
-  public function __construct(string $id) {
-    $this->id = $id;
+  public function __construct(
+    public string $id,
+    public string $contentType,
+    public string $eTag,
+    public string $status,
+    public ?string $byReference = null,
+    public ?string $isReplacedBy = null,
+    public ?string $relation = null,
+    public ?string $replaces = null,
+    public ?string $depositedBy = null,
+    public ?string $depositedOn = null,
+    public ?string $depositedOnBehalfOf = null,
+    public ?string $derivedFrom = null,
+    public ?string $log = null,
+    public ?string $packaging = null,
+    public array $rel = [],
+    public ?string $versionReplacedOn = null,
+  ) {
   }
 
   public function jsonSerialize() {

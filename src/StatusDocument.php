@@ -6,23 +6,19 @@ class StatusDocument implements \JsonSerializable {
   const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
   const TYPE = 'Status';
 
-  public string $id;
-
-  public ?string $eTag = null;
-
-  public string $metadataId;
-  public string $metadataEtag;
-
-  public string $fileSetId;
-  public string $fileSetEtag;
-  public string $service;
   protected array $state;
-  public Actions $actions;
 
-  protected array $links = [];
-
-  public function __construct(string $id) {
-    $this->id = $id;
+  public function __construct(
+    public string $id,
+    public string $metadataId,
+    public string $metadataEtag,
+    public string $fileSetId,
+    public string $fileSetEtag,
+    public string $service,
+    public Actions $actions,
+    public ?string $eTag = null,
+    protected array $links = []
+  ) {
   }
 
   public function addState(string $id, ?string $description): self

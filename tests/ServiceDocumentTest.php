@@ -14,24 +14,29 @@ class ServiceDocumentTest extends \PHPUnit\Framework\TestCase
 
     public function testDefaultServiceDocument()
     {
-        $sd = new ServiceDocument('my test id');
-        $sd->title = 'My test title';
-        $sd->abstract = 'My test abstract';
-        $sd->root = 'http://test-service-document';
+        $sd = new ServiceDocument(
+            id: 'my test id',
+            title: 'My test title',
+            abstract: 'My test abstract',
+            root: 'http://test-service-document'
+        );
 
         $this->assertJsonMatchesSchema(json_decode(json_encode($sd)), 'swordv3/docs/service-document.schema.json');
     }
 
     public function testWithCollectionPolicy()
     {
-        $sd = new ServiceDocument('my test id');
-        $sd->title = 'My test title';
-        $sd->abstract = 'My test abstract';
-        $sd->root = 'http://test-service-document';
+        $sd = new ServiceDocument(
+            id: 'my test id',
+            title: 'My test title',
+            abstract: 'My test abstract',
+            root: 'http://test-service-document'
+        );
 
-        $sd->collectionPolicy = new CollectionPolicy();
-        $sd->collectionPolicy->id = 'http://collection-policy';
-        $sd->collectionPolicy->description = 'A collection policy...';
+        $sd->collectionPolicy = new CollectionPolicy(
+            id: 'http://collection-policy',
+            description: 'A collection policy...'
+        );
 
         $decodedEncodedJson = json_decode(json_encode($sd));
 
@@ -43,14 +48,17 @@ class ServiceDocumentTest extends \PHPUnit\Framework\TestCase
 
     public function testWithTreatment()
     {
-        $sd = new ServiceDocument('my test id');
-        $sd->title = 'My test title';
-        $sd->abstract = 'My test abstract';
-        $sd->root = 'http://test-service-document';
+        $sd = new ServiceDocument(
+            id: 'my test id',
+            title: 'My test title',
+            abstract: 'My test abstract',
+            root: 'http://test-service-document'
+        );
 
-        $sd->treatment = new Treatment();
-        $sd->treatment->id = 'http://treatment';
-        $sd->treatment->description = 'A treatment...';
+        $sd->treatment = new Treatment(
+            id: 'http://treatment',
+            description: 'A treatment...'
+        );
 
         $decodedEncodedJson = json_decode(json_encode($sd));
 
@@ -62,10 +70,12 @@ class ServiceDocumentTest extends \PHPUnit\Framework\TestCase
 
     public function testWithServices()
     {
-        $sd = new ServiceDocument('my test id');
-        $sd->title = 'My test title';
-        $sd->abstract = 'My test abstract';
-        $sd->root = 'http://test-service-document';
+        $sd = new ServiceDocument(
+            id: 'my test id',
+            title: 'My test title',
+            abstract: 'My test abstract',
+            root: 'http://test-service-document'
+        );
 
         $subSd = clone $sd;
         $subSd->id = 'my nested service document id';

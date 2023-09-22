@@ -3,8 +3,11 @@
 namespace Asmecher\Swordv3Server;
 
 class CollectionPolicy implements \JsonSerializable {
-  public string $id;
-  public string $description;
+  public function __construct(
+    public string $id,
+    public string $description
+  ) {
+  }
 
   public function jsonSerialize() {
     return [
