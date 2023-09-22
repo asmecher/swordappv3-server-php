@@ -10,6 +10,7 @@
     </paths>
     <version number="3.0.0">
         <api>
+            <default-package-name>Swordv3Server</default-package-name>
             <source dsn=".">
                 <path>src</path>
             </source>

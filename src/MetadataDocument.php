@@ -27,7 +27,6 @@ namespace Asmecher\Swordv3Server;
  *
  * See [9.3. Metadata Document](https://swordapp.github.io/swordv3/swordv3.html#9.3) in the SWORD 3.0 Specification for details.
  *
- * @package Swordv3Server
  * @author Alec Smecher <asmecher@sfu.ca>
  * @license https://opensource.org/license/gpl-3-0 GNU General Public License version 3
  */
@@ -36,14 +35,20 @@ class MetadataDocument implements \JsonSerializable {
   const TYPE = 'Metadata';
 
   public function __construct(
+    /** The URL of the Metadata Document you are looking at */
     public string $id,
-    protected array $metadata = []
+    /** An associative list of metadata element names and values */
+    protected array $metadata = [],
   ) {
   }
 
-  public function addMetadata(string $field, string $value): self
+  /**
+   * Add a metadata element to the set.
+   * @param string $name The name of the metadata element, e.g. `dc:title`
+   */
+  public function addMetadata(string $name, string $value): self
   {
-    $this->metadata[$field] = $value;
+    $this->metadata[$name] = $value;
     return $this;
   }
 

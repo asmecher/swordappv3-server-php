@@ -18,13 +18,12 @@ namespace Asmecher\Swordv3Server;
  *   actions: new Actions(...),
  *   ...
  * );
- * $statusDocument->addState('http://purl.org/net/sword/3.0/state/inProgress', 'the item is currently inProgress');
+ * $statusDocument->addState(StatusDocument::STATE_IN_PROGRESS, 'the item is currently inProgress');
  * ```
  * Convert the object to JSON using `json_serialize`.
  *
  * See [9.6. Status Document](https://swordapp.github.io/swordv3/swordv3.html#9.6) in the SWORD 3.0 Specification for details.
  *
- * @package Swordv3Server
  * @author Alec Smecher <asmecher@sfu.ca>
  * @license https://opensource.org/license/gpl-3-0 GNU General Public License version 3
  */
@@ -32,27 +31,51 @@ class StatusDocument implements \JsonSerializable {
   const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
   const TYPE = 'Status';
 
+  const STATE_ACCEPTED = 'http://purl.org/net/sword/3.0/state/accepted';
+  const STATE_IN_PROGRESS = 'http://purl.org/net/sword/3.0/state/inProgress';
+  const STATE_IN_WORKFLOW = 'http://purl.org/net/sword/3.0/state/inWorkflow';
+  const STATE_INGESTED = 'http://purl.org/net/sword/3.0/state/ingested';
+  const STATE_REJECTED = 'http://purl.org/net/sword/3.0/state/rejected';
+  const STATE_DELETED = 'http://purl.org/net/sword/3.0/state/deleted';
+
+  /** List of states that the item is in on the server. */
   protected array $state;
 
   public function __construct(
+    /** The Object-URL for this document */
     public string $id,
+    /** The Metadata-URL for this Object */
     public string $metadataId,
+    /** The ETag for the Metadata */
     public string $metadataEtag,
+    /** The FileSet-URL for this Object */
     public string $fileSetId,
+    /** The Etag for the FileSet */
     public string $fileSetEtag,
+    /** The URL for the service to which this item was deposited (the Service-URL) */
     public string $service,
+    /** Container for the list of actions that are available against the object for the client. */
     public Actions $actions,
+    /** The current ETag for the Object */
     public ?string $eTag = null,
-    protected array $links = []
+    /** List of link objects referring to the various files, both content and metadata, available on the object */
+    protected array $links = [],
   ) {
   }
 
+  /**
+   * Add a state to the end of the state list.
+   * @param string $id One of the STATE_... constants, or a custom value
+   */
   public function addState(string $id, ?string $description): self
   {
     $this->state[] = (object) ['@id' => $id, 'description' => $description];
     return $this;
   }
 
+  /**
+   * Add a link to the end of the link list.
+   */
   public function addLink(Link $link): self
   {
     $this->links[] = $link;

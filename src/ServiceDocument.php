@@ -20,7 +20,6 @@ namespace Asmecher\Swordv3Server;
  *
  * See [9.2. Service Document](https://swordapp.github.io/swordv3/swordv3.html#9.2) in the SWORD 3.0 Specification for details.
  *
- * @package Swordv3Server
  * @author Alec Smecher <asmecher@sfu.ca>
  * @license https://opensource.org/license/gpl-3-0 GNU General Public License version 3
  */
@@ -47,40 +46,67 @@ class ServiceDocument implements \JsonSerializable {
   const DEFAULT_AUTHENTICATION = ['Basic', 'OAuth', 'Digest', 'APIKey'];
 
   public function __construct(
+    /** The URL of the service document you are looking at */
     public string $id,
+    /** The title or name of the Service */
     public string $title,
+    /** A description of the service */
     public string $abstract,
+    /** The URL for the root Service Document. */
     public string $root,
+    /** Does the Service accept deposits? */
     public bool $acceptDeposits = true,
 
+    /** Maximum number of segments that the server will accept for a single segmented upload, if segmented upload is supported. */
     public ?int $maxUploadSize = self::DEFAULT_MAX_UPLOAD_SIZE,
+    /** Maximum size in bytes as an integer for files uploaded by reference. */
     public ?int $maxByReferenceSize = self::DEFAULT_MAX_BY_REFERENCE_SIZE,
+    /** Maximum size in bytes as an integer for an individual segment in a segmented upload */
     public ?int $maxSegmentSize = self::DEFAULT_MAX_SEGMENT_SIZE,
+    /** Minimum size in bytes as an integer for an individual segment in a segmented upload */
     public ?int $minSegmentSize = self::DEFAULT_MIN_SEGMENT_SIZE,
+    /** Maximum size in bytes as an integer for the total size of an assembled segmented upload */
     public ?int $maxAssembledSize = self::DEFAULT_MAX_ASSEMBLED_SIZE,
+    /** Maximum number of segments that the server will accept for a single segmented upload, if segmented upload is supported. */
     public ?int $maxSegments = self::DEFAULT_MAX_SEGMENTS,
 
+    /** List of Content Types which are acceptable to the server. */
     public array $accept = self::DEFAULT_ACCEPTS,
+    /** List of Archive Formats that the server can unpack. If the server sends a package using a different format, the server MAY treat it as a Binary File */
     public array $acceptArchiveFormat = self::DEFAULT_ACCEPT_ARCHIVE_FORMAT,
+    /** List of Packaging Formats which are acceptable to the server. */
     public array $acceptPackaging = self::DEFAULT_ACCEPT_PACKAGING,
+    /** List of Metadata Formats which are acceptable to the server. */
     public array $acceptMetadata = self::DEFAULT_ACCEPT_METADATA,
 
+    /** URL and description of the server’s collection policy. */
     public ?CollectionPolicy $collectionPolicy = null,
+    /** URL and description of the treatment content can expect during deposit. */
     public ?Treatment $treatment = null,
 
+    /** The URL where clients may stage content prior to deposit, in particular for segmented upload */
     public ?string $staging = null,
+    /** What is the minimum time a server will hold on to an incomplete Segmented File Upload since it last received any content before deleting it. */
     public ?int $stagingMaxIdle = self::DEFAULT_STAGING_MAX_IDLE,
 
+    /** Does the server support By-Reference deposit? */
     public bool $byReferenceDeposit = false,
+    /** Does the server support deposit on behalf of other users (mediation) */
     public bool $onBehalfOf = false,
 
+    /** The list of digest formats that the server will accept. */
     public array $digest = self::DEFAULT_DIGEST,
+    /** List of authentication schemes supported by the server. */
     public array $authentication = self::DEFAULT_AUTHENTICATION,
 
-    protected array $services = []
+    /** List of Services contained within the parent service */
+    protected array $services = [],
   ) {
   }
 
+  /**
+   * Add a service to the end of the list of services offered by this service.
+   */
   public function addService(ServiceDocument $sd): self
   {
     $this->services[] = $sd;

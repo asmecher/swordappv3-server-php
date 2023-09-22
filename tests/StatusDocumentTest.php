@@ -23,7 +23,7 @@ class StatusDocumentTest extends \PHPUnit\Framework\TestCase
             metadataEtag: 'abc',
             actions: new Actions()
         );
-        $sd->addState('http://purl.org/net/sword/3.0/state/inProgress', 'In progress');
+        $sd->addState(StatusDocument::STATE_IN_PROGRESS, 'In progress');
 
         $this->assertJsonMatchesSchema(json_decode(json_encode($sd)), 'swordv3/docs/status.schema.json');
     }
