@@ -3,9 +3,10 @@
 namespace Asmecher\Swordv3Server;
 
 class StatusDocument implements \JsonSerializable {
-  public string $context = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
+  const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
+  const TYPE = 'Status';
+
   public string $id;
-  public string $type = 'Status';
 
   public ?string $eTag = null;
 
@@ -38,9 +39,9 @@ class StatusDocument implements \JsonSerializable {
 
   public function jsonSerialize() {
     return array_filter([
-      '@context' => $this->context,
+      '@context' => self::CONTEXT,
       '@id' => $this->id,
-      '@type' => $this->type,
+      '@type' => self::TYPE,
       'eTag' => $this->eTag,
       'metadata' => (object) ['@id' => $this->fileSetId, 'eTag' => $this->fileSetEtag],
       'fileSet' => (object) ['@id' => $this->fileSetId, 'eTag' => $this->fileSetEtag],

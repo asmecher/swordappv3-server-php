@@ -3,10 +3,10 @@
 namespace Asmecher\Swordv3Server;
 
 class MetadataDocument implements \JsonSerializable {
-  public string $context = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
-  public string $id;
-  public string $type = 'Metadata';
+  const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
+  const TYPE = 'Metadata';
 
+  public string $id;
   protected array $metadata = [];
 
   public function __construct(string $id) {
@@ -21,9 +21,9 @@ class MetadataDocument implements \JsonSerializable {
 
   public function jsonSerialize() {
     return array_merge([
-      '@context' => $this->context,
+      '@context' => self::CONTEXT,
       '@id' => $this->id,
-      '@type' => $this->type,
+      '@type' => self::TYPE,
     ], $this->metadata);
   }
 }

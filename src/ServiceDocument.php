@@ -3,9 +3,11 @@
 namespace Asmecher\Swordv3Server;
 
 class ServiceDocument implements \JsonSerializable {
-  public string $context = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
+  const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
+  const TYPE = 'ServiceDocument';
+  const VERSION = 'http://purl.org/net/sword/3.0';
+
   public string $id;
-  public string $type = "ServiceDocument";
 
   public string $title;
   public string $abstract;
@@ -13,7 +15,6 @@ class ServiceDocument implements \JsonSerializable {
   public string $root;
   public bool $acceptDeposits = true;
 
-  public string $version = 'http://purl.org/net/sword/3.0';
   public ?int $maxUploadSize = 16777216000;
   public ?int $maxByReferenceSize = 30000000000000000;
   public ?int $maxSegmentSize = 16777216000;
@@ -52,14 +53,14 @@ class ServiceDocument implements \JsonSerializable {
 
   public function jsonSerialize() {
     return array_filter([
-      '@context' => $this->context,
+      '@context' => self::CONTEXT,
       '@id' => $this->id,
-      '@type' => $this->type,
+      '@type' => self::TYPE,
       'dc:title' => $this->title,
       'dcterms:abstract' => $this->abstract,
       'root' => $this->root,
       'acceptDeposits' => $this->acceptDeposits,
-      'version' => $this->version,
+      'version' => self::VERSION,
       'maxUploadSize' => $this->maxUploadSize,
       'maxByReferenceSize' => $this->maxByReferenceSize,
       'maxSegmentSize' => $this->maxSegmentSize,
