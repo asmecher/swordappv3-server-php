@@ -2,6 +2,32 @@
 
 namespace Asmecher\Swordv3Server;
 
+/**
+ * A representation of a SWORD v3 Status Document.
+ *
+ * Buld this class as follows:
+ * ```php
+ * $statusDocument = new StatusDocument(
+ *   id: 'http://www.myorg.ac.uk/sword3/object/1',
+ *   eTag: '...',
+ *   metadataId: 'http://www.myorg.ac.uk/sword3/object/1/metadata',
+ *   metadataEtag: '...',
+ *   fileSetId: 'http://www.myorg.ac.uk/sword3/object/1fileset',
+ *   fileSetEtag: '...',
+ *   service: 'http://www.myorg.ac.uk/sword3',
+ *   actions: new Actions(...),
+ *   ...
+ * );
+ * $statusDocument->addState('http://purl.org/net/sword/3.0/state/inProgress', 'the item is currently inProgress');
+ * ```
+ * Convert the object to JSON using `json_serialize`.
+ *
+ * See [9.6. Status Document](https://swordapp.github.io/swordv3/swordv3.html#9.6) in the SWORD 3.0 Specification for details.
+ *
+ * @package Swordv3Server
+ * @author Alec Smecher <asmecher@sfu.ca>
+ * @license https://opensource.org/license/gpl-3-0 GNU General Public License version 3
+ */
 class StatusDocument implements \JsonSerializable {
   const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
   const TYPE = 'Status';

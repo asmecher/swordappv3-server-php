@@ -2,6 +2,25 @@
 
 namespace Asmecher\Swordv3Server;
 
+/**
+ * An encapsulation of a link.
+ *
+ * Construct this class using named parameters:
+ * ```php
+ * $statusDocument->addLink(new Link(
+ *   id: 'http://www.myorg.ac.uk/col1/mydeposit.html',
+ *   contentType: 'text/html',
+ *   etag: '...',
+ *   status: 'http://purl.org/net/sword/3.0/state/accepted'
+ * ));
+ * ```
+ *
+ * This class is used in building the Status Document. See [9.6. Status Document](https://swordapp.github.io/swordv3/swordv3.html#9.6) in the SWORD 3.0 Specification for details.
+ *
+ * @package Swordv3Server
+ * @author Alec Smecher <asmecher@sfu.ca>
+ * @license https://opensource.org/license/gpl-3-0 GNU General Public License version 3
+ */
 class Link implements \JsonSerializable {
 
   public function __construct(
