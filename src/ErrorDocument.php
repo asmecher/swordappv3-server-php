@@ -2,6 +2,9 @@
 
 namespace Asmecher\Swordv3Server;
 
+use DateTimeImmutable;
+use DateTimeInterface;
+
 class ErrorDocument implements \JsonSerializable {
   const CONTEXT = 'https://swordapp.github.io/swordv3/swordv3.jsonld';
 
@@ -9,7 +12,7 @@ class ErrorDocument implements \JsonSerializable {
     public string $type,
     public string $error,
     public string $log,
-    public string $timestamp
+    public DateTimeImmutable $timestamp
   ) {
   }
 
@@ -19,7 +22,7 @@ class ErrorDocument implements \JsonSerializable {
       '@type' => $this->type,
       'error' => $this->error,
       'log' => $this->log,
-      'timestamp' => $this->timestamp,
+      'timestamp' => $this->timestamp->format(DateTimeInterface::ISO8601),
     ];
   }
 }

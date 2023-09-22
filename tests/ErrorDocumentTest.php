@@ -8,6 +8,8 @@ use Asmecher\Swordv3Server\ErrorDocument;
 use Asmecher\Swordv3Server\CollectionPolicy;
 use Asmecher\Swordv3Server\Treatment;
 
+use DateTimeImmutable;
+
 class ErrorDocumentTest extends \PHPUnit\Framework\TestCase
 {
     use JsonAssert;
@@ -16,7 +18,7 @@ class ErrorDocumentTest extends \PHPUnit\Framework\TestCase
     {
         $ed = new ErrorDocument(
             type: 'BadRequest',
-            timestamp: '1997-07-16T19:20:30+01:00',
+            timestamp: new DateTimeImmutable(),
             error: 'Error summary',
             log: 'text log of any debug information for the client'
         );
